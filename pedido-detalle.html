@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detalle del pedido · Aseo+</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310B981'/%3E%3Cpath d='M20 34l8 8 16-18' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }, colors: { brand: { 50:'#ECFDF5',100:'#D1FAE5',200:'#A7F3D0',300:'#6EE7B7',400:'#34D399',500:'#10B981',600:'#059669',700:'#047857',800:'#065F46',900:'#064E3B' } } } } }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+  <div id="navbar"></div>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <a href="perfil.html#pedidos" class="text-brand-600 hover:text-brand-700 font-medium text-sm mb-4 inline-block">← Volver a mis pedidos</a>
+
+    <div id="order-not-found" class="hidden text-center py-20">
+      <h1 class="text-2xl font-bold mb-4">Pedido no encontrado</h1>
+    </div>
+
+    <div id="order-content">
+      <!-- Encabezado -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p class="text-xs text-slate-500 uppercase tracking-wide">Pedido</p>
+            <h1 id="order-id" class="text-3xl font-bold text-brand-700">ASO-0000</h1>
+            <p id="order-date" class="text-sm text-slate-500 mt-1"></p>
+          </div>
+          <div class="text-right">
+            <span id="order-status" class="inline-block px-3 py-1 rounded-full text-sm font-semibold mb-2"></span>
+            <p id="order-total" class="text-2xl font-bold"></p>
+          </div>
+        </div>
+        <!-- Timeline -->
+        <div id="order-timeline" class="mt-6 pt-6 border-t border-slate-200"></div>
+      </div>
+
+      <!-- Items -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
+        <h2 class="font-bold mb-4">Productos</h2>
+        <div id="order-items" class="divide-y divide-slate-200"></div>
+      </div>
+
+      <!-- Datos envío y pago -->
+      <div class="grid sm:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="font-bold mb-3">Dirección de envío</h2>
+          <div id="order-address" class="text-sm text-slate-700 leading-relaxed"></div>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="font-bold mb-3">Pago y envío</h2>
+          <div id="order-shipping" class="text-sm text-slate-700 mb-3"></div>
+          <div id="order-payment" class="text-sm text-slate-700"></div>
+        </div>
+      </div>
+
+      <!-- Totales -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
+        <dl class="space-y-2 text-sm">
+          <div class="flex justify-between"><dt>Subtotal</dt><dd id="c-subtotal" class="font-medium"></dd></div>
+          <div class="flex justify-between"><dt>Envío</dt><dd id="c-envio" class="font-medium"></dd></div>
+        </dl>
+        <div class="flex justify-between text-xl font-bold mt-3 pt-3 border-t border-slate-200"><dt>Total</dt><dd id="c-total" class="text-brand-700"></dd></div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="flex flex-wrap gap-3">
+        <a href="perfil.html#pedidos" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2.5 rounded-xl transition">← Volver al historial</a>
+        <a href="productos.html" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-5 py-2.5 rounded-xl transition">Seguir comprando</a>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <div id="toast-container" class="fixed top-20 right-4 z-50 space-y-2"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    AseoUI.mountLayout({ activeNav: '' });
+
+    if (!AseoStore.auth.isAuthenticated()) {
+      location.href = 'login.html?redirect=perfil.html';
+    }
+
+    const id = AseoUI.getQueryParam('id');
+    const order = AseoStore.orders.getById(id);
+    if (!order) {
+      document.getElementById('order-not-found').classList.remove('hidden');
+      document.getElementById('order-content').classList.add('hidden');
+    } else {
+      document.getElementById('order-id').textContent = order.id;
+      document.getElementById('order-date').textContent = 'Realizado el ' + AseoUI.formatDate(order.fecha);
+      const statusColors = {
+        'Preparando': 'bg-amber-100 text-amber-700',
+        'En camino':  'bg-sky-100 text-sky-700',
+        'Entregado':  'bg-brand-100 text-brand-700',
+        'Cancelado':  'bg-rose-100 text-rose-700'
+      };
+      const statusEl = document.getElementById('order-status');
+      statusEl.textContent = order.estado;
+      statusEl.className = 'inline-block px-3 py-1 rounded-full text-sm font-semibold ' + (statusColors[order.estado] || 'bg-slate-100 text-slate-700');
+      document.getElementById('order-total').textContent = AseoUI.formatCLP(order.total);
+
+      // Timeline
+      const steps = ['Preparando', 'En camino', 'Entregado'];
+      const currentIdx = steps.indexOf(order.estado);
+      document.getElementById('order-timeline').innerHTML = `
+        <div class="flex items-center justify-between">
+          ${steps.map((s, i) => `
+            <div class="flex-1 flex flex-col items-center ${i < steps.length - 1 ? 'relative' : ''}">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${i <= currentIdx ? 'bg-brand-500 text-white' : 'bg-slate-200 text-slate-500'}">
+                ${i < currentIdx ? '✓' : i + 1}
+              </div>
+              <p class="text-xs mt-2 text-center ${i <= currentIdx ? 'font-semibold text-brand-700' : 'text-slate-500'}">${s}</p>
+              ${i < steps.length - 1 ? `<div class="absolute top-4 left-1/2 w-full h-0.5 ${i < currentIdx ? 'bg-brand-500' : 'bg-slate-200'} -z-10"></div>` : ''}
+            </div>
+          `).join('')}
+        </div>`;
+
+      // Items
+      const u = AseoStore.auth.getCurrent();
+      document.getElementById('order-items').innerHTML = order.items.map(i => `
+        <div class="py-4 flex gap-4">
+          <a href="producto.html?id=${i.productId}" class="w-20 h-20 bg-slate-100 rounded-xl overflow-hidden flex-shrink-0">
+            <img src="${i.imagen}" class="w-full h-full object-cover">
+          </a>
+          <div class="flex-1 min-w-0">
+            <a href="producto.html?id=${i.productId}" class="font-semibold hover:text-brand-600">${AseoUI.escapeHTML(i.nombre)}</a>
+            <p class="text-xs text-slate-500">${i.cantidad} × ${AseoUI.formatCLP(i.precioUnitario)} ${i.tipoVenta === 'mayorista' ? '(mayor)' : ''}</p>
+            ${order.estado === 'Entregado' ? `
+              <a href="resena.html?orderId=${order.id}&productId=${i.productId}" class="inline-flex items-center gap-1 mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                Dejar reseña
+              </a>` : ''}
+          </div>
+          <p class="font-semibold">${AseoUI.formatCLP(i.precioUnitario * i.cantidad)}</p>
+        </div>`).join('');
+
+      // Dirección
+      const d = order.direccion;
+      document.getElementById('order-address').innerHTML = `
+        <p class="font-medium">${AseoUI.escapeHTML(d.nombre)}</p>
+        <p>${AseoUI.escapeHTML(d.calle)}</p>
+        <p>${AseoUI.escapeHTML(d.ciudad)}, ${AseoUI.escapeHTML(d.region)}</p>
+        ${d.codigoPostal ? `<p>CP ${AseoUI.escapeHTML(d.codigoPostal)}</p>` : ''}
+        <p class="text-slate-500 mt-2">📞 ${AseoUI.escapeHTML(d.telefono)}</p>
+        ${d.notas ? `<p class="mt-2 text-xs italic bg-slate-50 px-2 py-1 rounded">Nota: ${AseoUI.escapeHTML(d.notas)}</p>` : ''}`;
+
+      document.getElementById('order-shipping').innerHTML = `🚚 <strong>${AseoUI.escapeHTML(order.envioTipo.nombre)}</strong><br><span class="text-slate-500">${order.envio === 0 ? 'Sin costo' : AseoUI.formatCLP(order.envio)}</span>`;
+      document.getElementById('order-payment').innerHTML = `💳 <strong>${AseoUI.escapeHTML(order.pagoTipo.nombre)}</strong><br><span class="text-slate-500">${AseoUI.escapeHTML(order.pagoTipo.detalle)}</span>`;
+
+      document.getElementById('c-subtotal').textContent = AseoUI.formatCLP(order.subtotal);
+      document.getElementById('c-envio').textContent    = order.envio === 0 ? 'Gratis' : AseoUI.formatCLP(order.envio);
+      document.getElementById('c-total').textContent    = AseoUI.formatCLP(order.total);
+    }
+  </script>
+</body>
+</html>

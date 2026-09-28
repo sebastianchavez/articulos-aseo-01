@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi perfil · Aseo+</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310B981'/%3E%3Cpath d='M20 34l8 8 16-18' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }, colors: { brand: { 50:'#ECFDF5',100:'#D1FAE5',200:'#A7F3D0',300:'#6EE7B7',400:'#34D399',500:'#10B981',600:'#059669',700:'#047857',800:'#065F46',900:'#064E3B' } } } } }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+  <div id="navbar"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid lg:grid-cols-[280px_1fr] gap-8">
+      <!-- Sidebar perfil -->
+      <aside class="space-y-4">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 text-center">
+          <div id="avatar" class="w-20 h-20 bg-brand-100 text-brand-700 rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-3"></div>
+          <h2 id="user-name" class="font-bold"></h2>
+          <p id="user-email" class="text-sm text-slate-500 break-all"></p>
+          <p id="user-since" class="text-xs text-slate-400 mt-2"></p>
+        </div>
+        <nav class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+          <button data-tab="datos" class="profile-tab w-full text-left px-5 py-3 hover:bg-slate-50 font-medium flex items-center gap-2 border-l-4 border-brand-500 bg-brand-50 text-brand-700">
+            <span>👤</span> Mis datos
+          </button>
+          <button data-tab="pedidos" class="profile-tab w-full text-left px-5 py-3 hover:bg-slate-50 font-medium flex items-center gap-2 border-l-4 border-transparent text-slate-700">
+            <span>📦</span> Mis pedidos
+          </button>
+          <button data-tab="seguridad" class="profile-tab w-full text-left px-5 py-3 hover:bg-slate-50 font-medium flex items-center gap-2 border-l-4 border-transparent text-slate-700">
+            <span>🔒</span> Seguridad
+          </button>
+          <button id="logout-btn" class="w-full text-left px-5 py-3 hover:bg-rose-50 font-medium flex items-center gap-2 text-rose-600 border-t border-slate-100">
+            <span>🚪</span> Cerrar sesión
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Contenido -->
+      <div class="space-y-6">
+        <!-- Datos -->
+        <section id="panel-datos" class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="text-xl font-bold mb-1">Datos personales</h2>
+          <p class="text-sm text-slate-500 mb-5">Actualiza tu información de contacto.</p>
+          <form id="profile-form" class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Nombre completo</label>
+              <input name="nombre" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Email</label>
+              <input name="email" disabled class="w-full px-4 py-2.5 border border-slate-300 rounded-lg bg-slate-50 text-slate-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Teléfono</label>
+              <input name="telefono" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1.5">Dirección principal</label>
+              <input name="direccion" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div class="sm:col-span-2 flex justify-end">
+              <button class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-2.5 rounded-lg">Guardar cambios</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Pedidos -->
+        <section id="panel-pedidos" class="bg-white rounded-2xl border border-slate-200 p-6 hidden">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h2 class="text-xl font-bold">Mis pedidos</h2>
+              <p class="text-sm text-slate-500">Historial completo de tus compras.</p>
+            </div>
+          </div>
+          <div id="orders-list" class="space-y-3"></div>
+          <div id="orders-empty" class="hidden text-center py-12">
+            <div class="text-5xl mb-3">📦</div>
+            <p class="text-slate-600 mb-4">Aún no tienes pedidos.</p>
+            <a href="productos.html" class="inline-block bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg font-semibold">Explorar catálogo</a>
+          </div>
+        </section>
+
+        <!-- Seguridad -->
+        <section id="panel-seguridad" class="bg-white rounded-2xl border border-slate-200 p-6 hidden">
+          <h2 class="text-xl font-bold mb-1">Seguridad</h2>
+          <p class="text-sm text-slate-500 mb-5">Gestiona tu contraseña.</p>
+          <form id="password-form" class="space-y-4 max-w-md">
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Contraseña actual</label>
+              <input type="password" name="actual" required class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Nueva contraseña</label>
+              <input type="password" name="nueva" required minlength="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Confirmar nueva contraseña</label>
+              <input type="password" name="confirmar" required minlength="6" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <button class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-2.5 rounded-lg">Cambiar contraseña</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <div id="toast-container" class="fixed top-20 right-4 z-50 space-y-2"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    AseoUI.mountLayout({ activeNav: '' });
+
+    if (!AseoStore.auth.isAuthenticated()) {
+      location.href = 'login.html?redirect=perfil.html';
+    }
+
+    const u = AseoStore.auth.getCurrent();
+    document.getElementById('avatar').textContent = (u.nombre || u.email).charAt(0).toUpperCase();
+    document.getElementById('user-name').textContent = u.nombre || 'Usuario';
+    document.getElementById('user-email').textContent = u.email;
+    document.getElementById('user-since').textContent = u.fechaRegistro ? 'Cliente desde ' + AseoUI.formatDate(u.fechaRegistro) : '';
+
+    // Cargar form datos
+    const pf = document.getElementById('profile-form');
+    pf.nombre.value = u.nombre || '';
+    pf.email.value = u.email;
+    pf.telefono.value = u.telefono || '';
+    pf.direccion.value = u.direccion || '';
+
+    pf.addEventListener('submit', (e) => {
+      e.preventDefault();
+      AseoStore.auth.updateProfile({
+        nombre: pf.nombre.value,
+        telefono: pf.telefono.value,
+        direccion: pf.direccion.value
+      });
+      AseoUI.toast('Datos actualizados', 'success');
+      AseoUI.renderNavbar('');
+      document.getElementById('user-name').textContent = pf.nombre.value;
+    });
+
+    // Tabs
+    document.querySelectorAll('.profile-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.profile-tab').forEach(b => {
+          b.classList.remove('border-brand-500', 'bg-brand-50', 'text-brand-700');
+          b.classList.add('border-transparent', 'text-slate-700');
+        });
+        btn.classList.add('border-brand-500', 'bg-brand-50', 'text-brand-700');
+        btn.classList.remove('border-transparent', 'text-slate-700');
+        document.querySelectorAll('#panel-datos, #panel-pedidos, #panel-seguridad').forEach(p => p.classList.add('hidden'));
+        document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
+      });
+    });
+
+    // Si URL tiene #pedidos, abrir esa tab
+    if (location.hash === '#pedidos') {
+      document.querySelector('[data-tab="pedidos"]').click();
+    }
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      if (confirm('¿Cerrar sesión?')) {
+        AseoStore.auth.logout();
+        location.href = 'index.html';
+      }
+    });
+
+    // Pedidos
+    function renderOrders() {
+      const list = AseoStore.orders.getByUser(u.id);
+      const cont = document.getElementById('orders-list');
+      const empty = document.getElementById('orders-empty');
+      if (list.length === 0) {
+        cont.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      const statusColors = {
+        'Preparando': 'bg-amber-100 text-amber-700',
+        'En camino':  'bg-sky-100 text-sky-700',
+        'Entregado':  'bg-brand-100 text-brand-700',
+        'Cancelado':  'bg-rose-100 text-rose-700'
+      };
+      cont.innerHTML = list.map(o => `
+        <a href="pedido-detalle.html?id=${o.id}" class="block border border-slate-200 rounded-xl p-4 hover:border-brand-400 hover:shadow-md transition">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <div>
+              <p class="font-bold">Pedido ${o.id}</p>
+              <p class="text-xs text-slate-500">${AseoUI.formatDate(o.fecha)} · ${o.items.length} producto${o.items.length !== 1 ? 's' : ''}</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${statusColors[o.estado] || 'bg-slate-100 text-slate-700'}">${o.estado}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <p class="text-sm text-slate-600">Total: <span class="font-semibold text-slate-900">${AseoUI.formatCLP(o.total)}</span></p>
+            <span class="text-brand-600 text-sm font-medium">Ver detalle →</span>
+          </div>
+        </a>`).join('');
+    }
+    renderOrders();
+
+    // Password form (mock)
+    document.getElementById('password-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      if (fd.get('nueva') !== fd.get('confirmar')) {
+        AseoUI.toast('Las contraseñas no coinciden', 'error'); return;
+      }
+      // Actualizar mock password
+      const users = JSON.parse(localStorage.getItem('aaseo_users') || '[]');
+      const i = users.findIndex(x => x.email === u.email);
+      if (i > -1) {
+        users[i].password = fd.get('nueva');
+        localStorage.setItem('aaseo_users', JSON.stringify(users));
+      }
+      AseoUI.toast('Contraseña actualizada', 'success');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

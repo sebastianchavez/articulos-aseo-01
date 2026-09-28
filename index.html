@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aseo+ · Artículos de aseo al detalle y al por mayor</title>
+  <meta name="description" content="Tienda online de artículos de aseo para el hogar. Venta al detalle y al por mayor con envío a todo el país.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310B981'/%3E%3Cpath d='M20 34l8 8 16-18' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#ECFDF5',
+              100: '#D1FAE5',
+              200: '#A7F3D0',
+              300: '#6EE7B7',
+              400: '#34D399',
+              500: '#10B981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065F46',
+              900: '#064E3B',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+
+  <div id="navbar"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-brand-500 via-brand-600 to-emerald-700 text-white">
+      <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 30%, white 0%, transparent 40%), radial-gradient(circle at 80% 70%, white 0%, transparent 40%);"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="inline-block bg-white/15 backdrop-blur px-4 py-1.5 rounded-full text-sm font-medium mb-6">✨ Envío gratis sobre $25.000</span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+            Artículos de aseo <br>
+            <span class="text-brand-200">al detalle y al por mayor</span>
+          </h1>
+          <p class="text-lg text-brand-50 mb-8 max-w-lg">
+            Productos de calidad para tu hogar, negocio o empresa. Compra por unidad o aprovecha nuestros precios mayoristas con despacho a todo el país.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="productos.html" class="bg-white text-brand-700 px-7 py-3.5 rounded-xl font-semibold hover:bg-brand-50 transition shadow-lg">
+              Ver catálogo
+            </a>
+            <a href="productos.html?tipo=mayorista" class="bg-white/10 backdrop-blur border border-white/30 px-7 py-3.5 rounded-xl font-semibold hover:bg-white/20 transition">
+              Comprar al por mayor →
+            </a>
+          </div>
+          <div class="mt-10 flex flex-wrap gap-6 text-sm">
+            <div class="flex items-center gap-2"><span class="text-2xl">🚚</span> Despacho 24-48h</div>
+            <div class="flex items-center gap-2"><span class="text-2xl">💳</span> Pago seguro</div>
+            <div class="flex items-center gap-2"><span class="text-2xl">🏷️</span> Precios mayoristas</div>
+          </div>
+        </div>
+        <div class="hidden lg:block">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 backdrop-blur p-6 rounded-2xl border border-white/20 aspect-square flex flex-col justify-end">
+              <img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&q=80" class="rounded-xl mb-3 w-full h-44 object-cover" alt="">
+              <p class="font-semibold">Detergentes</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur p-6 rounded-2xl border border-white/20 aspect-square flex flex-col justify-end translate-y-8">
+              <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80" class="rounded-xl mb-3 w-full h-44 object-cover" alt="">
+              <p class="font-semibold">Desinfectantes</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur p-6 rounded-2xl border border-white/20 aspect-square flex flex-col justify-end -translate-y-8">
+              <img src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&q=80" class="rounded-xl mb-3 w-full h-44 object-cover" alt="">
+              <p class="font-semibold">Escobas y trapeadores</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur p-6 rounded-2xl border border-white/20 aspect-square flex flex-col justify-end">
+              <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&q=80" class="rounded-xl mb-3 w-full h-44 object-cover" alt="">
+              <p class="font-semibold">Lavandería</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3">Explora por categoría</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">Encuentra exactamente lo que necesitas para mantener cada espacio de tu hogar o negocio impecable.</p>
+      </div>
+      <div id="categories-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS -->
+    <section class="bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold mb-2">Productos destacados</h2>
+            <p class="text-slate-600">Los más vendidos de nuestra tienda</p>
+          </div>
+          <a href="productos.html" class="text-brand-600 font-semibold hover:text-brand-700">Ver todos →</a>
+        </div>
+        <div id="featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section class="bg-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white p-6 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-brand-100 text-brand-600 rounded-xl flex items-center justify-center text-2xl mb-4">🚚</div>
+            <h3 class="font-semibold mb-2">Envío a todo el país</h3>
+            <p class="text-sm text-slate-600">Despachamos en 24-48h a todas las regiones.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center text-2xl mb-4">💰</div>
+            <h3 class="font-semibold mb-2">Precios mayoristas</h3>
+            <p class="text-sm text-slate-600">Hasta 30% de descuento por volumen.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-2xl mb-4">⭐</div>
+            <h3 class="font-semibold mb-2">Calidad garantizada</h3>
+            <p class="text-sm text-slate-600">Marcas reconocidas y productos certificados.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl mb-4">💬</div>
+            <h3 class="font-semibold mb-2">Atención personalizada</h3>
+            <p class="text-sm text-slate-600">Asesoría por WhatsApp y email.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER MAYORISTA -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-3xl p-8 lg:p-12 grid lg:grid-cols-2 gap-8 items-center overflow-hidden relative">
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-500/20 rounded-full blur-3xl"></div>
+        <div class="relative">
+          <span class="inline-block bg-brand-500/20 text-brand-300 px-3 py-1 rounded-full text-xs font-semibold mb-4">VENTA AL POR MAYOR</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">¿Tienes un negocio o empresa?</h2>
+          <p class="text-slate-300 mb-6 max-w-lg">Accede a precios especiales comprando desde 6 unidades por producto. Ideal para hoteles, restaurantes, oficinas y empresas de limpieza.</p>
+          <a href="productos.html?tipo=mayorista" class="inline-flex bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-xl font-semibold transition">
+            Ver precios mayoristas →
+          </a>
+        </div>
+        <div class="relative hidden lg:block">
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-sm text-slate-300">Detergente 5L</span>
+              <span class="text-xs bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded">−25%</span>
+            </div>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-3xl font-bold">$8.990</span>
+              <span class="text-slate-400 line-through">$11.990</span>
+            </div>
+            <div class="flex justify-between items-end">
+              <span class="text-sm text-slate-300">Desinfectante 1L</span>
+              <span class="text-xs bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded">−30%</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold">$4.490</span>
+              <span class="text-slate-400 line-through">$6.490</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-3">Lo que dicen nuestros clientes</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-slate-50 p-6 rounded-2xl">
+            <div class="text-amber-400 mb-3">★★★★★</div>
+            <p class="text-slate-700 mb-4">"Excelente atención y productos de calidad. Siempre encuentro todo lo que necesito para mi hogar."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-brand-200 text-brand-700 flex items-center justify-center font-semibold">MC</div>
+              <div>
+                <p class="font-semibold text-sm">María Castro</p>
+                <p class="text-xs text-slate-500">Cliente hace 2 años</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-50 p-6 rounded-2xl">
+            <div class="text-amber-400 mb-3">★★★★★</div>
+            <p class="text-slate-700 mb-4">"Compramos al por mayor para nuestro hotel y los precios son imbatibles. Despacho rápido."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 flex items-center justify-center font-semibold">JR</div>
+              <div>
+                <p class="font-semibold text-sm">José Ramírez</p>
+                <p class="text-xs text-slate-500">Hotel Las Palmas</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-50 p-6 rounded-2xl">
+            <div class="text-amber-400 mb-3">★★★★★</div>
+            <p class="text-slate-700 mb-4">"La página es muy fácil de usar y el proceso de compra es súper rápido. Recomendados 100%."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center font-semibold">CV</div>
+              <div>
+                <p class="font-semibold text-sm">Carolina Vega</p>
+                <p class="text-xs text-slate-500">Cliente frecuente</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="bg-brand-50 border border-brand-200 rounded-3xl p-8 lg:p-12 text-center">
+        <h2 class="text-3xl font-bold mb-3">Recibe ofertas exclusivas</h2>
+        <p class="text-slate-600 mb-6 max-w-xl mx-auto">Suscríbete a nuestro newsletter y entérate primero de promociones, nuevos productos y descuentos mayoristas.</p>
+        <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); AseoUI.toast('¡Gracias por suscribirte!', 'success'); this.reset();">
+          <input type="email" required placeholder="tu@correo.com" class="flex-1 px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <button class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-xl font-semibold transition">Suscribirme</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <div id="toast-container" class="fixed top-20 right-4 z-50 space-y-2"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/home.js"></script>
+  <script>
+    AseoUI.mountLayout({ activeNav: 'inicio' });
+    if (window.AseoHome) AseoHome.init();
+  </script>
+</body>
+</html>

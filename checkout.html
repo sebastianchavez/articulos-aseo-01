@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirmación de pago · Aseo+</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310B981'/%3E%3Cpath d='M20 34l8 8 16-18' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }, colors: { brand: { 50:'#ECFDF5',100:'#D1FAE5',200:'#A7F3D0',300:'#6EE7B7',400:'#34D399',500:'#10B981',600:'#059669',700:'#047857',800:'#065F46',900:'#064E3B' } } } } }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+  <div id="navbar"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-2">Confirmación de pago</h1>
+    <p class="text-slate-600 mb-8">Completa los datos para finalizar tu compra.</p>
+
+    <form id="checkout-form" class="grid lg:grid-cols-[1fr_380px] gap-8">
+      <div class="space-y-6">
+        <!-- Datos de contacto -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="text-lg font-bold mb-4 flex items-center gap-2"><span class="w-7 h-7 bg-brand-500 text-white rounded-full flex items-center justify-center text-sm">1</span> Datos de contacto</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Nombre completo *</label>
+              <input name="nombre" required class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Email *</label>
+              <input type="email" name="email" required class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1.5">Teléfono *</label>
+              <input name="telefono" required placeholder="+56 9 ..." class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+          </div>
+        </section>
+
+        <!-- Dirección de envío -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="text-lg font-bold mb-4 flex items-center gap-2"><span class="w-7 h-7 bg-brand-500 text-white rounded-full flex items-center justify-center text-sm">2</span> Dirección de envío</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1.5">Calle y número *</label>
+              <input name="calle" required placeholder="Av. Principal 1234, Depto 501" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Ciudad *</label>
+              <input name="ciudad" required class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Región *</label>
+              <select name="region" required class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+                <option value="">Selecciona región</option>
+                <option>Región Metropolitana</option>
+                <option>Valparaíso</option>
+                <option>Biobío</option>
+                <option>Maule</option>
+                <option>O'Higgins</option>
+                <option>La Araucanía</option>
+                <option>Los Lagos</option>
+                <option>Antofagasta</option>
+                <option>Coquimbo</option>
+                <option>Ñuble</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Código postal</label>
+              <input name="codigoPostal" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1.5">Notas para el envío</label>
+              <textarea name="notas" rows="2" placeholder="Ej: dejar en conserjería, llamar al llegar..." class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tipo de envío -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="text-lg font-bold mb-4 flex items-center gap-2"><span class="w-7 h-7 bg-brand-500 text-white rounded-full flex items-center justify-center text-sm">3</span> Tipo de envío</h2>
+          <div id="envio-options" class="space-y-3"></div>
+        </section>
+
+        <!-- Medio de pago -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="text-lg font-bold mb-4 flex items-center gap-2"><span class="w-7 h-7 bg-brand-500 text-white rounded-full flex items-center justify-center text-sm">4</span> Medio de pago</h2>
+          <div id="pago-options" class="grid sm:grid-cols-2 gap-3 mb-5"></div>
+          <div id="card-fields" class="space-y-4 bg-slate-50 p-4 rounded-xl">
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Nombre en la tarjeta *</label>
+              <input name="tarjetaNombre" placeholder="Como aparece en la tarjeta" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Número de tarjeta *</label>
+              <input name="tarjetaNumero" placeholder="0000 0000 0000 0000" maxlength="19" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1.5">Vencimiento *</label>
+                <input name="tarjetaExp" placeholder="MM/AA" maxlength="5" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1.5">CVV *</label>
+                <input name="tarjetaCvv" placeholder="123" maxlength="4" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+              </div>
+            </div>
+          </div>
+          <p id="pago-info" class="hidden mt-3 text-sm text-slate-600 bg-slate-50 p-3 rounded-lg"></p>
+        </section>
+      </div>
+
+      <!-- Resumen lateral -->
+      <aside class="space-y-4 h-fit sticky top-20">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+          <h2 class="text-lg font-bold mb-4">Resumen del pedido</h2>
+          <div id="resumen-items" class="space-y-3 mb-4 max-h-72 overflow-y-auto"></div>
+          <dl class="space-y-2 text-sm border-t border-slate-200 pt-4">
+            <div class="flex justify-between"><dt>Subtotal</dt><dd id="r-subtotal" class="font-semibold"></dd></div>
+            <div class="flex justify-between"><dt>Envío</dt><dd id="r-envio" class="font-semibold">—</dd></div>
+          </dl>
+          <div class="flex justify-between text-lg font-bold mt-3 pt-3 border-t border-slate-200"><dt>Total</dt><dd id="r-total"></dd></div>
+          <button type="submit" class="mt-5 w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 rounded-xl transition">Confirmar compra</button>
+          <p class="text-xs text-slate-500 text-center mt-3">Al confirmar aceptas nuestros <a href="terminos-condiciones.html" class="text-brand-600 hover:underline">términos</a>.</p>
+        </div>
+        <div class="flex items-center justify-center gap-2 text-xs text-slate-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          Pago 100% seguro · Datos encriptados
+        </div>
+      </aside>
+    </form>
+  </main>
+
+  <div id="footer"></div>
+  <div id="toast-container" class="fixed top-20 right-4 z-50 space-y-2"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    AseoUI.mountLayout({ activeNav: '' });
+
+    // Inicializar con datos del usuario si está autenticado
+    const u = AseoStore.auth.getCurrent();
+    if (u) {
+      const form = document.getElementById('checkout-form');
+      form.nombre.value = u.nombre || '';
+      form.email.value = u.email || '';
+      form.telefono.value = u.telefono || '';
+      if (u.direccion) {
+        const partes = u.direccion.split(',');
+        form.calle.value = partes[0]?.trim() || '';
+        form.ciudad.value = partes[1]?.trim() || '';
+      }
+    }
+
+    // Estado del checkout
+    const checkout = {
+      envioId: 'estandar',
+      pagoId: 'tarjeta'
+    };
+
+    // Renderizar opciones de envío
+    document.getElementById('envio-options').innerHTML = AseoData.envios.map((e, i) => `
+      <label class="flex items-center gap-4 p-4 border-2 ${i === 0 ? 'border-brand-500 bg-brand-50' : 'border-slate-200 hover:border-brand-300'} rounded-xl cursor-pointer transition" data-id="${e.id}">
+        <input type="radio" name="envio" value="${e.id}" ${i === 0 ? 'checked' : ''} class="accent-brand-500">
+        <div class="flex-1">
+          <p class="font-semibold">${e.nombre}</p>
+          <p class="text-sm text-slate-600">${e.descripcion}</p>
+        </div>
+        <p class="font-bold ${e.precio === 0 ? 'text-brand-600' : ''}">${e.precio === 0 ? 'Gratis' : AseoUI.formatCLP(e.precio)}</p>
+      </label>`).join('');
+
+    document.querySelectorAll('#envio-options label').forEach(lab => {
+      lab.addEventListener('click', () => {
+        document.querySelectorAll('#envio-options label').forEach(l => { l.classList.remove('border-brand-500', 'bg-brand-50'); l.classList.add('border-slate-200'); });
+        lab.classList.add('border-brand-500', 'bg-brand-50');
+        lab.classList.remove('border-slate-200');
+        checkout.envioId = lab.dataset.id;
+        actualizarTotal();
+      });
+    });
+
+    // Renderizar opciones de pago
+    document.getElementById('pago-options').innerHTML = AseoData.pagos.map((p, i) => `
+      <label class="flex items-center gap-3 p-4 border-2 ${i === 0 ? 'border-brand-500 bg-brand-50' : 'border-slate-200 hover:border-brand-300'} rounded-xl cursor-pointer transition" data-id="${p.id}">
+        <input type="radio" name="pago" value="${p.id}" ${i === 0 ? 'checked' : ''} class="accent-brand-500">
+        <span class="text-2xl">${p.icono}</span>
+        <span class="font-medium text-sm">${p.nombre}</span>
+      </label>`).join('');
+
+    const cardFields = document.getElementById('card-fields');
+    const pagoInfo = document.getElementById('pago-info');
+
+    function actualizarPagoUI() {
+      if (checkout.pagoId === 'tarjeta') {
+        cardFields.classList.remove('hidden'); pagoInfo.classList.add('hidden');
+      } else if (checkout.pagoId === 'paypal') {
+        cardFields.classList.add('hidden'); pagoInfo.classList.remove('hidden');
+        pagoInfo.textContent = 'Serás redirigido a PayPal para completar el pago de forma segura.';
+      } else if (checkout.pagoId === 'transferencia') {
+        cardFields.classList.add('hidden'); pagoInfo.classList.remove('hidden');
+        pagoInfo.innerHTML = 'Recibirás los datos bancarios al confirmar. Tu pedido se prepara tras acreditar el pago.';
+      } else if (checkout.pagoId === 'contraentrega') {
+        cardFields.classList.add('hidden'); pagoInfo.classList.remove('hidden');
+        pagoInfo.textContent = 'Pagas en efectivo o tarjeta al momento de recibir tu pedido.';
+      }
+    }
+
+    document.querySelectorAll('#pago-options label').forEach(lab => {
+      lab.addEventListener('click', () => {
+        document.querySelectorAll('#pago-options label').forEach(l => { l.classList.remove('border-brand-500', 'bg-brand-50'); l.classList.add('border-slate-200'); });
+        lab.classList.add('border-brand-500', 'bg-brand-50');
+        lab.classList.remove('border-slate-200');
+        checkout.pagoId = lab.dataset.id;
+        actualizarPagoUI();
+      });
+    });
+
+    // Renderizar resumen lateral
+    const items = AseoStore.cart.detailedItems();
+    if (items.length === 0) {
+      location.href = 'carrito.html';
+    } else {
+      document.getElementById('resumen-items').innerHTML = items.map(i => `
+        <div class="flex gap-3 text-sm">
+          <img src="${i.producto.imagen}" class="w-14 h-14 rounded-lg object-cover">
+          <div class="flex-1 min-w-0">
+            <p class="font-medium line-clamp-2">${AseoUI.escapeHTML(i.producto.name)}</p>
+            <p class="text-xs text-slate-500">${i.cantidad} × ${AseoUI.formatCLP(i.precioUnitario)} ${i.tipoVenta === 'mayorista' ? '(mayor)' : ''}</p>
+          </div>
+          <p class="font-semibold">${AseoUI.formatCLP(i.subtotal)}</p>
+        </div>`).join('');
+    }
+
+    function actualizarTotal() {
+      const subtotal = AseoStore.cart.total();
+      const envio = AseoData.envios.find(e => e.id === checkout.envioId);
+      const envioPrecio = envio ? envio.precio : 0;
+      const total = subtotal + envioPrecio;
+      document.getElementById('r-subtotal').textContent = AseoUI.formatCLP(subtotal);
+      document.getElementById('r-envio').textContent = envioPrecio === 0 ? 'Gratis' : AseoUI.formatCLP(envioPrecio);
+      document.getElementById('r-total').textContent = AseoUI.formatCLP(total);
+    }
+    actualizarTotal();
+
+    // Submit
+    document.getElementById('checkout-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new Object(new FormData(e.target));
+      // Validar tarjeta si aplica
+      if (checkout.pagoId === 'tarjeta') {
+        if (!fd.tarjetaNombre || !fd.tarjetaNumero || !fd.tarjetaExp || !fd.tarjetaCvv) {
+          AseoUI.toast('Completa los datos de la tarjeta', 'error'); return;
+        }
+      }
+      const envio = AseoData.envios.find(x => x.id === checkout.envioId);
+      const pago = AseoData.pagos.find(x => x.id === checkout.pagoId);
+      const subtotal = AseoStore.cart.total();
+      const items = AseoStore.cart.detailedItems().map(i => ({
+        productId: i.productId, nombre: i.producto.name, imagen: i.producto.imagen,
+        precioUnitario: i.precioUnitario, cantidad: i.cantidad, tipoVenta: i.tipoVenta
+      }));
+      const user = AseoStore.auth.getCurrent() || { id: 'invitado@aseo.cl', nombre: fd.nombre, email: fd.email };
+      const order = AseoStore.orders.create({
+        userId: user.id,
+        items,
+        subtotal,
+        envio: envio.precio,
+        total: subtotal + envio.precio,
+        direccion: { nombre: fd.nombre, email: fd.email, telefono: fd.telefono, calle: fd.calle, ciudad: fd.ciudad, region: fd.region, codigoPostal: fd.codigoPostal, notas: fd.notas || '' },
+        envioTipo: { id: envio.id, nombre: envio.nombre + ' (' + envio.descripcion + ')', precio: envio.precio },
+        pagoTipo: {
+          id: pago.id,
+          nombre: pago.nombre,
+          detalle: checkout.pagoId === 'tarjeta' ? `${fd.tarjetaNumero.slice(0,4)} •••• ${fd.tarjetaNumero.slice(-4)}` : (checkout.pagoId === 'transferencia' ? 'Pendiente de pago' : checkout.pagoId === 'contraentrega' ? 'Pago al recibir' : 'PayPal')
+        }
+      });
+      AseoStore.cart.clear();
+      location.href = 'confirmacion.html?id=' + order.id;
+    });
+  </script>
+</body>
+</html>

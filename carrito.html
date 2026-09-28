@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carrito · Aseo+</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310B981'/%3E%3Cpath d='M20 34l8 8 16-18' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }, colors: { brand: { 50:'#ECFDF5',100:'#D1FAE5',200:'#A7F3D0',300:'#6EE7B7',400:'#34D399',500:'#10B981',600:'#059669',700:'#047857',800:'#065F46',900:'#064E3B' } } } } }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+  <div id="navbar"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-8">Carrito de compras</h1>
+
+    <div id="cart-empty" class="hidden text-center py-20">
+      <div class="text-6xl mb-4">🛒</div>
+      <h2 class="text-2xl font-bold mb-2">Tu carrito está vacío</h2>
+      <p class="text-slate-600 mb-6">Aún no has agregado productos. ¡Explora nuestro catálogo!</p>
+      <a href="productos.html" class="inline-block bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-xl font-semibold">Ver productos</a>
+    </div>
+
+    <div id="cart-content" class="grid lg:grid-cols-[1fr_360px] gap-8">
+      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        <div class="p-5 border-b border-slate-200 hidden sm:grid grid-cols-[1fr_120px_140px_100px_40px] gap-4 text-sm font-semibold text-slate-600">
+          <span>Producto</span><span class="text-center">Cantidad</span><span class="text-center">Precio unit.</span><span class="text-right">Subtotal</span><span></span>
+        </div>
+        <div id="cart-items" class="divide-y divide-slate-200"></div>
+        <div class="p-5 flex flex-wrap gap-3 justify-between items-center bg-slate-50">
+          <a href="productos.html" class="text-brand-600 hover:text-brand-700 font-medium">← Seguir comprando</a>
+          <button id="clear-cart" class="text-rose-600 hover:text-rose-700 text-sm font-medium">Vaciar carrito</button>
+        </div>
+      </div>
+
+      <aside class="bg-white rounded-2xl border border-slate-200 p-6 h-fit sticky top-20">
+        <h2 class="text-xl font-bold mb-4">Resumen del pedido</h2>
+        <dl class="space-y-3 text-sm">
+          <div class="flex justify-between"><dt class="text-slate-600">Subtotal</dt><dd id="subtotal" class="font-semibold"></dd></div>
+          <div class="flex justify-between"><dt class="text-slate-600">Envío estimado</dt><dd id="shipping-estimate" class="font-semibold text-slate-500">Calculado en checkout</dd></div>
+        </dl>
+        <div class="border-t border-slate-200 my-4"></div>
+        <div class="flex justify-between text-lg font-bold mb-4"><dt>Total estimado</dt><dd id="total"></dd></div>
+        <p class="text-xs text-slate-500 mb-4">El costo de envío y total final se calculan en el checkout según tu dirección y tipo de envío.</p>
+        <a id="checkout-btn" href="checkout.html" class="block text-center bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 rounded-xl transition">Proceder al pago</a>
+        <a href="productos.html" class="block text-center mt-3 text-sm text-slate-600 hover:text-brand-600">Seguir comprando</a>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <div id="toast-container" class="fixed top-20 right-4 z-50 space-y-2"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    AseoUI.mountLayout({ activeNav: '' });
+
+    function renderCart() {
+      const items = AseoStore.cart.detailedItems();
+      const empty = document.getElementById('cart-empty');
+      const content = document.getElementById('cart-content');
+      const list = document.getElementById('cart-items');
+      if (items.length === 0) {
+        empty.classList.remove('hidden');
+        content.classList.add('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      content.classList.remove('hidden');
+      list.innerHTML = items.map(i => `
+        <div class="p-5 grid sm:grid-cols-[1fr_120px_140px_100px_40px] gap-4 items-center">
+          <div class="flex items-center gap-4">
+            <a href="producto.html?id=${i.productId}" class="w-20 h-20 bg-slate-100 rounded-xl overflow-hidden flex-shrink-0">
+              <img src="${i.producto.imagen}" class="w-full h-full object-cover" alt="">
+            </a>
+            <div>
+              <a href="producto.html?id=${i.productId}" class="font-semibold text-slate-800 hover:text-brand-600 line-clamp-2">${AseoUI.escapeHTML(i.producto.name)}</a>
+              <span class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full ${i.tipoVenta === 'mayorista' ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-600'}">${i.tipoVenta === 'mayorista' ? 'Por mayor' : 'Detalle'}</span>
+              <p class="text-xs text-slate-500 mt-1 sm:hidden">${AseoUI.formatCLP(i.precioUnitario)} c/u</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <div class="flex items-center border border-slate-300 rounded-lg">
+              <button class="px-2 py-1 hover:bg-slate-100 rounded-l-lg" onclick="AseoStore.cart.update('${i.productId}','${i.tipoVenta}',Math.max(1,${i.cantidad}-1));AseoUI.toast('Cantidad actualizada','info');location.reload()">−</button>
+              <span class="w-10 text-center text-sm font-medium">${i.cantidad}</span>
+              <button class="px-2 py-1 hover:bg-slate-100 rounded-r-lg" onclick="AseoStore.cart.update('${i.productId}','${i.tipoVenta}',${i.cantidad}+1);location.reload()">+</button>
+            </div>
+          </div>
+          <div class="text-center text-sm font-medium hidden sm:block">${AseoUI.formatCLP(i.precioUnitario)}</div>
+          <div class="text-right font-semibold">${AseoUI.formatCLP(i.subtotal)}</div>
+          <div class="text-right">
+            <button class="text-slate-400 hover:text-rose-600 p-2" title="Eliminar" onclick="AseoStore.cart.remove('${i.productId}','${i.tipoVenta}');AseoUI.toast('Producto eliminado','info');location.reload()">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M9 7V4a2 2 0 012-2h2a2 2 0 012 2v3"/></svg>
+            </button>
+          </div>
+        </div>`).join('');
+      const total = AseoStore.cart.total();
+      document.getElementById('subtotal').textContent = AseoUI.formatCLP(total);
+      document.getElementById('total').textContent = AseoUI.formatCLP(total);
+      // Actualizar contador del navbar
+      AseoUI.renderNavbar('');
+    }
+
+    document.getElementById('clear-cart').addEventListener('click', () => {
+      if (confirm('¿Vaciar todo el carrito?')) {
+        AseoStore.cart.clear();
+        AseoUI.toast('Carrito vaciado', 'info');
+        renderCart();
+      }
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
